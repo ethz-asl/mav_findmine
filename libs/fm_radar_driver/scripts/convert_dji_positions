@@ -1,0 +1,47 @@
+#!/usr/bin/python
+
+# MIT License
+#
+# Copyright (c) 2021 Rik Baehnemann, ASL, ETH Zurich, Switzerland
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sellpython
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+from fm_radar_driver.convert_dji_positions import*
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Convert DJI navsat fix message to ENU message and export with DJI attitude.')
+    parser.add_argument('input_bag', nargs=1, help='The bag containing the onboard sensor data.')
+    parser.add_argument('output_bag', nargs=1, help='The output bag.')
+    parser.add_argument('rtk_topic', nargs=1, help='The RTK ENU position topic.')
+    parser.add_argument('navsat_topic', nargs=1, help='The DJI navsat topic.')
+    parser.add_argument('attitude_topic', nargs=1, help='The attitude topic.')
+    parser.add_argument('enu_origin', nargs=1, help='The file containing WGS84 coordinates of the ENU origin.')
+    parser.add_argument('--plot', default=False, action='store_true', help='Plot calibration results.')
+
+    args = parser.parse_args()
+
+    print("Input bag: %s" %(args.input_bag[0]))
+    print("Output bag: %s" %(args.output_bag[0]))
+    print("RTK topic: %s" %(args.rtk_topic[0]))
+    print("DJI navsat topic: %s" %(args.navsat_topic[0]))
+    print("Attitude topic: %s" %(args.attitude_topic[0]))
+    print("ENU origin: %s" %(args.enu_origin[0]))
+
+    convert_dji_positions(args.input_bag[0], args.output_bag[0], args.rtk_topic[0], args.navsat_topic[0], args.attitude_topic[0], args.enu_origin[0], args.plot)

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="mav_name" default="moa"/>
+
+  <group ns="$(arg mav_name)">
+    <node name="watchdog" pkg="fm_sensor_watchdog" type="fm_sensor_watchdog" output="screen">
+      <rosparam command="load" file="$(find fm_sensor_watchdog)/cfg/sensor_watchdog.yaml" />
+    </node>
+  </group>
+
+</launch>

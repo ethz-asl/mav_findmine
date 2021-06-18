@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fm_radar_driver</name>
+  <version>1.0.0</version>
+  <description>
+    A container for the THU python radar driver.
+  </description>
+
+  <author email="brik@ethz.ch">Rik Bähnemann</author>
+  <maintainer email="brik@ethz.ch">Rik Bähnemann</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+</package>

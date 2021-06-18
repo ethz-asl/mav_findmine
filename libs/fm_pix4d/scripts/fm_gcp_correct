@@ -1,0 +1,14 @@
+#!/usr/bin/python
+
+from fm_pix4d import interpreter, gcp_extractor
+import sys
+
+if __name__ == '__main__':
+    #process input
+    args = interpreter.process_gcps(sys.argv[1:])
+
+    #create gcps
+    print("Extracting gcp's".center(80,'*'))
+    gcp_extractor.main(args)
+
+    print("transpose successful export successful")

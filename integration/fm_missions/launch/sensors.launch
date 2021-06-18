@@ -1,0 +1,40 @@
+<launch>
+  <arg name="mav_name" default="$(env HOSTNAME)"/>
+  <arg name="velodyne" default="false"/>
+
+  <!-- VersaVIS. -->
+  <include file="$(find versavis)/launch/findmine_core.launch">
+    <arg name="mav_name" value="$(arg mav_name)"/>
+    <arg name="output" value="log"/>
+  </include>
+
+  <!-- Camera -->
+  <include file="$(find versavis)/launch/findmine.launch">
+    <arg name="ns" value="$(arg mav_name)"/>
+    <arg name="binning" value="1"/>
+    <arg name="rate" value="2" />
+    <arg name="throttle" value="2" />
+    <arg name="output" value="log"/>
+  </include>
+
+  <!-- Piksi -->
+  <include file="$(find piksi_multi_cpp)/launch/rover.launch">
+    <arg name="ns" value="$(arg mav_name)"/>
+    <arg name="device_ids" value="usb://*"/>
+  </include>
+
+  <group ns="$(arg mav_name)">
+    <!-- Velodyne -->
+    <group if="$(arg velodyne)">
+      <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">
+        <arg name="min_range" value="1.0" />
+        <arg name="device_ip" value="192.168.0.201" />
+        <arg name="gps_time" value="true" />
+      </include>
+    </group>
+
+    <!-- Static transforms -->
+    <include file="$(find fm_missions)/launch/static_transforms.launch" />
+  </group>
+
+</launch>

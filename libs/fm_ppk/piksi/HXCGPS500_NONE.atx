@@ -1,0 +1,30 @@
+     1.4            G                                       ANTEX VERSION / SYST
+A                                                           PCV TYPE / REFANT   
+This calibration extracted from composite ngs14.atx.  See   COMMENT            
+the composite file ngs14.atx for more information.          COMMENT            
+                                                            END OF HEADER       
+                                                            START OF ANTENNA    
+HXCGPS500       NONE                                        TYPE / SERIAL NO    
+FIELD               NGS                      3    06-OCT-17 METH / BY / # / DATE
+     0.0                                                    DAZI                
+     0.0  80.0   5.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+NGSRA_2066                                                  SINEX CODE          
+CONVERTED FROM RELATIVE NGS ANTENNA CALIBRATIONS            COMMENT             
+   G01                                                      START OF FREQUENCY  
+      0.36     -0.63     54.64                              NORTH / EAST / UP   
+   NOAZI    0.00   -0.63   -0.91   -0.94   -0.94   -0.73   -0.58   -0.41   -0.30   -0.04    0.02   -0.02   -0.16   -0.58   -1.11   -1.64   -2.07
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      0.21      1.34     47.65                              NORTH / EAST / UP   
+   NOAZI    0.00    0.47    0.69    0.82    0.71    0.52    0.30   -0.07   -0.42   -0.62   -0.66   -0.46   -0.13    0.37    0.77    1.27    1.82
+   G02                                                      END OF FREQUENCY    
+   G01                                                      START OF FREQ RMS   
+      0.50      1.00      0.50                              NORTH / EAST / UP   
+   NOAZI    0.00    0.40    0.50    0.60    0.60    0.50    0.40    0.40    0.30    0.30    0.40    0.40    0.50    0.60    0.60    0.50    0.40
+   G01                                                      END OF FREQ RMS     
+   G02                                                      START OF FREQ RMS   
+      1.00      0.50      0.50                              NORTH / EAST / UP   
+   NOAZI    0.00    0.10    0.10    0.20    0.20    0.20    0.10    0.20    0.20    0.20    0.20    0.30    0.30    0.30    0.30    0.30    0.20
+   G02                                                      END OF FREQ RMS     
+                                                            END OF ANTENNA      

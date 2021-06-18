@@ -1,0 +1,61 @@
+<launch>
+  <arg name="mav_name" default="moa" />
+  <arg name="target_table" default="$(find fm_mission_planner)/cfg/target_table.csv" />
+  <arg name="sensor_model_type" default="1"/>
+  <arg name="tile_folder" default="generic_home/map_tiles" />
+  <arg name="enu_frame" default="enu" />
+
+  <node name="tile_server_node" pkg="fm_mission_planner" type="server_launch.sh" args="$(arg tile_folder)" />
+
+  <node name="target_viz" type="target_viz" pkg="fm_mission_planner" output="screen">
+    <remap from="home_point" to="/$(arg mav_name)/piksi/position_receiver_0/ros/base_pos_navsatfix" />
+    <param name="target_table" value="$(arg target_table)" />
+    <param name="frame_id" value="enu" />
+  </node>
+
+  <!-- Relay all topics that should be displayed. -->
+  <node name="dji_pos_relay" type="relay" pkg="topic_tools" args="/$(arg mav_name)/dji_sdk/local_position /rviz/dji_sdk/local_position" output="screen" />
+  <node name="trajectory_relay" type="relay" pkg="topic_tools" args="/$(arg mav_name)/trajectory_generator/trajectory_marker /rviz/trajectory_generator/trajectory_marker" output="screen" />
+
+  <!-- We need to set the frame in order for rviz satellite to work properly. -->
+  <node
+    name="dji_frame_relay"
+    pkg="topic_tools"
+    type="transform"
+    output="screen"
+    args="/$(arg mav_name)/piksi/position_receiver_0/ros/base_pos_navsatfix /rviz/piksi/position_receiver_0/ros/base_pos_navsatfix sensor_msgs/NavSatFix 'sensor_msgs.msg.NavSatFix(header=std_msgs.msg.Header(seq=m.header.seq,stamp=m.header.stamp,frame_id=&quot;$(arg enu_frame)&quot;),status=m.status,latitude=m.latitude,longitude=m.longitude,altitude=m.altitude,position_covariance=m.position_covariance,position_covariance_type=m.position_covariance_type)' --import sensor_msgs std_msgs --wait-for-start --latch"/>
+
+  <node name="mission_planner" pkg="rviz" type="rviz" output="screen" args="-d $(find fm_mission_planner)/cfg/mission_planner.rviz">
+    <rosparam command="load" file="$(find fm_mission_planner)/cfg/mission_planner.yaml" />
+    <remap from="geo_ref" to="/$(arg mav_name)/piksi/position_receiver_0/ros/base_pos_navsatfix" />
+  </node>
+
+  <node name="map_enu_tf" pkg="tf2_ros" type="static_transform_publisher" output="screen" args="0 0 0 0 0 0 $(arg enu_frame) map" />
+  <node name="enu_ground_ENU_rtk_tf" pkg="tf2_ros" type="static_transform_publisher" output="screen" args="0 0 0 0 0 0 $(arg enu_frame) ground_ENU_rtk" />
+
+  <node name="coverage_planner"
+    pkg="polygon_coverage_ros"
+    type="coverage_planner"
+    output="screen"
+    clear_params="true" >
+
+    <!-- Basic and control parameter -->
+    <rosparam command="load" file="$(find polygon_coverage_ros)/cfg/coverage_planner.yaml" />
+    <!-- Sweep planner specific parameter -->
+    <param name="lateral_overlap" value="0.6" />
+    <param name="offset_polygons" value="false" />
+    <param name="sweep_single_direction" value="false" />
+    <param name="v_max" value="4.0" />
+    <param name="a_max" value="0.5" />
+    <!-- Decomposition type: 0, 1 [bcd, trapezoidal]-->
+    <param name="decomposition_type" value="0" />
+    <!-- Sensor model: 0, 1 [line, frustum]-->
+    <param name="sensor_model_type" value="$(arg sensor_model_type)" />
+    <!-- Line parameters. -->
+    <param name="lateral_footprint" value="1.5" if="$(eval arg('sensor_model_type') == 0)" />
+    <!-- Frustum parameters. -->
+    <param name="lateral_fov" value="0.84" if="$(eval arg('sensor_model_type') == 1)" />
+    <param name="set_start_goal_from_rviz" value="false" />
+    <param name="set_polygon_from_rviz" value="false" />
+  </node>
+</launch>

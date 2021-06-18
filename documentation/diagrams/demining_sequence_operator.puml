@@ -1,0 +1,10 @@
+@startuml
+
+[*] -> HighAltitudeAerialImaging: **SHA polygon**
+
+HighAltitudeAerialImaging -> LowAltitudeRadarFlight
+
+LowAltitudeRadarFlight -> RadarImaging
+RadarImaging -> [*]: **Probabilistic target map**
+
+@enduml

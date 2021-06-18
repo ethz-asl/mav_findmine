@@ -1,0 +1,10 @@
+#!/usr/bin/python
+
+import sys
+from fm_sensor_watchdog.sensor_watchdog_plugin import SensorWatchdogPlugin
+from rqt_gui.main import Main
+
+
+plugin = 'fm_sensor_watchdog'
+main = Main(filename=plugin)
+sys.exit(main.main(standalone=plugin))

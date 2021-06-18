@@ -1,0 +1,64 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Python
+*.pyc
+
+# Arduino
+libs/fm_time_sync/firmware/libraries/ros_lib/*
+*.elf
+*.hex
+
+# ROS
+*.bag
+*.png
+
+# Rovio
+*.info_new
+
+# Data
+#*.csv
+*.bin
+*.log
+
+# Merge
+*.orig
+
+# Matlab
+*.m~
+
+# CLion
+**/.idea/*
+**/cmake-build-debug/*
+./libs/fm_radar_driver/src/fm_radar_driver/Radar-Python-Interface/
+./libs/fm_radar_driver/src/fm_radar_driver/*

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fm_mission_planner</name>
+  <version>1.0.0</version>
+  <description>
+    RVIZ plugin to plan simple missions.
+  </description>
+
+  <maintainer email="brik@ethz.ch">Rik Baehnemann</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>rviz</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>fm_trajectories</depend>
+  <depend>visualization_msgs</depend>
+  <depend>eigen_conversions</depend>
+  <depend>mav_trajectory_generation_ros</depend>
+  <depend>angles</depend>
+  <depend>polygon_coverage_geometry</depend>
+  <depend>polygon_coverage_msgs</depend>
+  <depend>polygon_coverage_ros</depend>
+  <depend>rviz_polygon_tool</depend>
+
+  <export>
+    <rviz plugin="${prefix}/plugin_description.xml"/>
+  </export>
+</package>

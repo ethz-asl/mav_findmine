@@ -1,0 +1,11 @@
+@startuml
+
+[*] -> HighAltitudeAerialImaging: SHA polygon
+HighAltitudeAerialImaging -> [*]: **DSM**
+
+HighAltitudeAerialImaging -> LowAltitudeRadarFlight : **No flight zones**
+
+LowAltitudeRadarFlight -> RadarImaging
+RadarImaging -> [*]
+
+@enduml

@@ -1,0 +1,12 @@
+<library path="src">
+  <class name="SensorWatchdogPlugin" type="fm_sensor_watchdog.sensor_watchdog_plugin.SensorWatchdogPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      GUI for visualiznig sensor activity
+    </description>
+    <qtgui>
+      <label>Sensor watchdog</label>
+      <icon type="theme">system-help</icon>
+      <statustip>User interface.</statustip>
+    </qtgui>
+  </class>
+</library>

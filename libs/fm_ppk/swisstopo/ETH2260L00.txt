@@ -1,0 +1,26 @@
+Summary file for          : ETH2260L00.20o
+Created (local time)      : 16/09/2020 13:32:37
+
+Order ID                  : 3676
+Order number              : 20
+Order item ID             : 4062
+
+Input parameters          : 
+Start time (GPS)          : 16/09/2020 11:52:51
+End time (GPS)            : 16/09/2020 11:59:51
+Interval [sec]            : 1
+VRS request               : No
+Station                   : ETH2
+
+Result                    : 
+Generation status         : Successful
+Effective minutes         : 7
+Available epochs          : 420
+File size [Bytes]         : 7366689
+File type                 : RINEX 3.03
+
+Data analysis             : 
+Block 0 start             : 16/09/2020 11:52:51
+Block 0 end               : 16/09/2020 11:59:51
+Block 0 good Epochs       : 420
+Block 0 missing Epochs    : 0

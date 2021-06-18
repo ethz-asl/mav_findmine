@@ -1,0 +1,14 @@
+#!/usr/bin/python
+from fm_pix4d import interpreter, tms2xyz, path_helper
+import sys
+
+
+if __name__ == '__main__':
+    #extract args
+    args = interpreter.process_tile_input(sys.argv[1:])
+
+    #apply transform
+    tms2xyz.main(args)
+
+    #sync with the tile repo
+    path_helper.sync_dir(args.intermediate_dir, args.output_dir)

@@ -1,0 +1,44 @@
+#!/usr/bin/python
+
+# MIT License
+#
+# Copyright (c) 2021 Rik Baehnemann, ASL, ETH Zurich, Switzerland
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sellpython
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+from fm_altitude_estimator.plot import*
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Bag merging.')
+    parser.add_argument('input_bag', nargs=1, help='The bag containing altitude estimator topics.')
+    parser.add_argument('state_topic', nargs=1, help='The altitude state topic.')
+    parser.add_argument('gnss_topic', nargs=1, help='The gnss topic.')
+    parser.add_argument('radar_topic', nargs=1, help='The radar topic.')
+    parser.add_argument('lidar_topic', nargs=1, help='The lidar topic.')
+
+    args = parser.parse_args()
+
+    print("Input bag: %s" %(args.input_bag[0]))
+    print("State topic: %s" %(args.state_topic[0]))
+    print("GNSS topic: %s" %(args.gnss_topic[0]))
+    print("Radar topic: %s" %(args.radar_topic[0]))
+    print("Lidar topic: %s" %(args.lidar_topic[0]))
+
+    plot(args.input_bag[0], args.state_topic[0], args.gnss_topic[0], args.radar_topic[0], args.lidar_topic[0])

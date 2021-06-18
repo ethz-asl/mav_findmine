@@ -1,0 +1,59 @@
+<launch>
+  <arg name="mav_name" default="$(env HOSTNAME)" />
+  <arg name="output" default="screen" />
+  <arg name="imu_frame_id" default="adis16448bmlz" />
+
+  <include file="$(find fm_altitude_estimator)/launch/estimator.launch">
+    <arg name="mav_name" value="$(arg mav_name)" />
+    <arg name="output" value="$(arg output)" />
+  </include>
+
+  <include file="$(find mav_state_estimation)/launch/mav_state_estimator.launch">
+    <arg name="mav_name" value="$(arg mav_name)" />
+    <arg name="output" value="$(arg output)" />
+    <arg name="euler" value="false" />
+    <arg name="replay_bag" value="false" />
+    <arg name="record" value="false" />
+    <arg name="visualize" value="false" />
+    <arg name="run_estimator" value="false" /> <!-- run in nodelet below -->
+  </include>
+
+  <include file="$(find fm_control)/launch/enu_conversion.launch">
+    <arg name="mav_name" value="$(arg mav_name)" />
+    <arg name="output" value="$(arg output)" />
+  </include>
+
+  <group ns="$(arg mav_name)">
+
+    <!-- CORE -->
+    <node pkg="dji_sdk" type="dji_sdk_node" name="dji_sdk" output="$(arg output)">
+      <rosparam command="load" file="$(find fm_missions)/cfg/core/dji_sdk.yaml" />
+    </node>
+
+    <node name="position_controller" pkg="fm_control" type="position_controller" output="$(arg output)">
+      <rosparam command="load" file="$(find fm_missions)/cfg/core/position_controller.yaml" />
+    </node>
+
+    <node name="enu_to_local_broadcaster" pkg="tf2_ros" type="static_transform_publisher" args="0.0 0.0 0.0 0.0 0.0 0.0 ground_ENU local" />
+
+    <node pkg="nodelet" type="nodelet" name="mav_state_estimation_nodelet_manager" args="manager" cwd="node" output="$(arg output)"/>
+    <node pkg="nodelet" type="nodelet" name="mav_state_estimator" args="load mav_state_estimation/MavStateEstimatorNodelet mav_state_estimation_nodelet_manager" output="$(arg output)">
+      <remap from="imu0" to="adis16448bmlz/imu"/>
+      <remap from="pos0" to="piksi/position_receiver_0/ros/pos_enu_cov"/>
+      <remap from="baseline0" to="piksi/attitude_receiver_0/ros/baseline_ned"/>
+      <rosparam file="$(find mav_state_estimation)/cfg/estimator.yaml"/>
+    </node>
+    <node pkg="nodelet" type="nodelet" name="imu_transform_nodelet" args="load versavis/ImuTransformNodelet mav_state_estimation_nodelet_manager" output="$(arg output)">
+      <remap from="in" to="$(arg imu_frame_id)/imu_micro"/>
+      <remap from="out" to="$(arg imu_frame_id)/imu"/>
+      <param name="frame_id" type="string" value="$(arg imu_frame_id)"/>
+      <param name="gyro_cov" type="double" value="4.0e-06"/>
+      <param name="acc_cov" type="double" value="0.0002"/>
+      <param name="acc_scale" type="double" value="$(eval 9.807 / 1200.0)"/>
+      <param name="gyro_scale" type="double" value="$(eval 0.04 * 3.14159265359 / 180.0)"/>
+    </node>
+
+    <node pkg="mav_state_estimation" type="bag_to_csv" name="bag_to_csv" output="$(arg output)" />
+  </group>
+
+</launch>

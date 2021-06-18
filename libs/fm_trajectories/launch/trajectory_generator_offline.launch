@@ -1,0 +1,11 @@
+<launch>
+  <arg name="mav_name" default="moa"/>
+  <group ns="$(arg mav_name)" >
+    <node name="trajectory_generator" pkg="fm_trajectories" type="trajectory_generator" output="screen" />
+  </group>
+
+  <!-- Send dummy ENU position. -->
+  <node pkg="rostopic" type="rostopic" name="fake_gps_fix" args="pub /moa/dji_sdk/local_frame_ref sensor_msgs/NavSatFix --latch --file=$(find fm_trajectories)/cfg/local_enu.gps" output="screen"/>
+
+  <node name="trajectory_generator_rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find fm_trajectories)/cfg/trajectory_generator.rviz" />
+</launch>

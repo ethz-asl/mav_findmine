@@ -1,0 +1,9 @@
+<library path="lib/libfm_mission_planner">
+  <class name="fm_mission_planner/MissionPlanner"
+         type="fm_mission_planner::MissionPlannerPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget for planning MAV missions.
+    </description>
+  </class>
+</library>

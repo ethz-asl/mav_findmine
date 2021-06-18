@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# MIT License
+#
+# Copyright (c) 2020 Rik Baehnemann, ASL, ETH Zurich, Switzerland
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# Examples:
+# python compute_tf --t_IB 0.32814489446 0.547163543717 0.624172457467 --q_IB -0.00246319163431 0.0140058276818 0.251852305569 0.96766119363 --t_IS 0.203107666963 0.709297854349 0.706584227053 --q_IS -0.00187505868805 0.0106400729452 0.253052872076 0.967392121601 --body_frame moa --sensor_frame pos
+# python compute_tf --t_IB 0.32814489446 0.547163543717 0.624172457467 --q_IB -0.00246319163431 0.0140058276818 0.251852305569 0.96766119363 --t_IS 0.399513239714 0.357556280678 0.706278604393 --q_IS -0.000570493175136 0.00517858054059 0.252285642124 0.967638781581 --body_frame moa --sensor_frame att
+# python compute_tf --t_IB 0.570 -0.828 0.627 --q_IB -0.000 -0.011 -0.209 0.978 --t_IS 0.446 -0.769 0.372 --q_IS -0.004 -0.012 -0.212 0.977 --body_frame moa --sensor_frame adis16448bmlz_vicon
+
+import numpy as np
+import tf
+
+import argparse
+parser = argparse.ArgumentParser(description='Compute static TF T_BS from body frame to sensor frame given Vicon measurements.')
+parser.add_argument('--t_IB', nargs=3, help='Translation from Vicon frame to body frame [x y z].')
+parser.add_argument('--q_IB', nargs=4, help='Rotation from Vicon frame to body frame [x y z w].')
+parser.add_argument('--t_IS', nargs=3, help='Translation from Vicon frame to sensor frame [x y z].')
+parser.add_argument('--q_IS', nargs=4, help='Rotation from Vicon frame to sensor frame [x y z w].')
+parser.add_argument('--body_frame', nargs=1, help='The name of the body frame.')
+parser.add_argument('--sensor_frame', nargs=1, help='The name of the sensor frame.')
+args = parser.parse_args()
+
+q_IB = tf.transformations.quaternion_matrix([args.q_IB[0] ,args.q_IB[1], args.q_IB[2], args.q_IB[3]])
+t_IB = tf.transformations.translation_matrix([args.t_IB[0] ,args.t_IB[1], args.t_IB[2]])
+T_IB = tf.transformations.concatenate_matrices(t_IB, q_IB)
+print("T_IB")
+print(T_IB)
+
+q_IS = tf.transformations.quaternion_matrix([args.q_IS[0] ,args.q_IS[1], args.q_IS[2], args.q_IS[3]])
+t_IS = tf.transformations.translation_matrix([args.t_IS[0] ,args.t_IS[1], args.t_IS[2]])
+T_IS = tf.transformations.concatenate_matrices(t_IS, q_IS)
+print("T_IS")
+print(T_IS)
+
+T_BI = np.linalg.inv(T_IB)
+T_BS = np.dot(T_BI, T_IS)
+print("T_BS")
+print(T_BS)
+q_BS = tf.transformations.quaternion_from_matrix(T_BS)
+t_BS = tf.transformations.translation_from_matrix(T_BS)
+
+tf_q_string = "{:.6f} {:.6f} {:.6f} {:.6f}".format(q_BS[0], q_BS[1], q_BS[2], q_BS[3])
+tf_p_string = "{:.4f} {:.4f} {:.4f}".format(t_BS[0], t_BS[1], t_BS[2])
+
+# write static tf publisher
+print("Static transform publisher:")
+tf_publisher_string = '<node pkg="tf2_ros" type="static_transform_publisher" name="broadcaster_{body}_to_{sensor}" args="{pos_string} {quat_string} {body} {sensor}" />'
+print(tf_publisher_string.format(body=args.body_frame[0], sensor=args.sensor_frame[0], quat_string=tf_q_string, pos_string=tf_p_string))

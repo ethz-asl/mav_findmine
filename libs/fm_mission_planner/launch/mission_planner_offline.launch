@@ -1,0 +1,12 @@
+<launch>
+  <arg name="mav_name" default="moa" />
+  <arg name="target_table" default="$(find fm_mission_planner)/cfg/target_table.csv" />
+
+  <!-- Send a static GPS fix to every new subscriber. Edit latitude and longitude in launch/demo.gps to use your own position. -->
+  <node pkg="rostopic" type="rostopic" name="fake_gps_fix" args="pub /$(arg mav_name)/piksi/position_receiver_0/ros/base_pos_navsatfix sensor_msgs/NavSatFix --latch -r1 --file=$(find fm_mission_planner)/cfg/home.gps" output="screen"/>
+
+  <include file="$(find fm_mission_planner)/launch/mission_planner.launch">
+    <arg name="mav_name" value="$(arg mav_name)" />
+    <arg name="target_table" value="$(arg target_table)" />
+  </include>
+</launch>

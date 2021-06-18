@@ -1,0 +1,11 @@
+<launch>
+  <arg name="mav_name" />
+
+  <include file="$(find fm_mission_planner)/launch/mission_planner.launch">
+    <arg name="mav_name" value="$(arg mav_name)"/>
+  </include>
+
+  <include file="$(find fm_sensor_watchdog)/launch/sensor_watchdog.launch">
+    <arg name="mav_name" value="$(arg mav_name)"/>
+  </include>
+</launch>

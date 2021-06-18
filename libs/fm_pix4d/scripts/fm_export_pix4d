@@ -1,0 +1,19 @@
+#!/usr/bin/python
+
+from fm_pix4d import interpreter, image_extractor, gcp_extractor, cam_calibration_manager
+import sys
+
+if __name__ == '__main__':
+    #process input
+    args = interpreter.process_bag_input(sys.argv[1:])
+    #extract images (with geotag)
+    print('Extracting Images'.center(80,'*'))
+    image_extractor.main(args)
+    #create gcps
+    print("Extracting gcp's".center(80,'*'))
+    gcp_extractor.main(args)
+    #add camera file
+    print("Adding camera parameters".center(80,'*'))
+    cam_calibration_manager.main(args)
+
+    print("export successful")

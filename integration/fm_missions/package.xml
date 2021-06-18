@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fm_missions</name>
+  <version>1.0.0</version>
+  <description>
+    Integration tasks to fly missions.
+  </description>
+
+  <maintainer email="brik@ethz.ch">Rik Baehnemann</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <exec_depend>dji_sdk</exec_depend>
+  <exec_depend>fm_control</exec_depend>
+  <exec_depend>fm_task_manager</exec_depend>
+  <exec_depend>fm_sensor_watchdog</exec_depend>
+  <exec_depend>piksi_multi_cpp</exec_depend>
+  <exec_depend>versavis</exec_depend>
+  <exec_depend>mav_state_estimation</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>rospkg</exec_depend>
+
+  <depend>task_manager_lib</depend>
+  <depend>std_srvs</depend>
+
+</package>

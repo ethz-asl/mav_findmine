@@ -1,0 +1,34 @@
+network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        enp2s0:
+            dhcp4: true
+            optional: true
+        #enp2s0:
+        #    addresses:
+        #        - 192.168.0.200/16
+        #    optional: true
+        enp3s0:
+            dhcp4: true
+            optional: true
+        #enp3s0:
+        #    match:
+        #        macaddress: 5D-70-5F-CA-6D-D6
+        #    addresses:
+        #        - 169.254.44.1/16
+        #    mtu: 9000
+        #    optional: true
+    wifis:
+        wlp4s0:
+            dhcp4: true
+            access-points:
+                "base-5G":
+                    password: "Bw37UvXx"
+                "flynet-an":
+                    password: "schoof2013"
+                "flynet-mobile-an":
+                    password: "schoof2013"
+                "findmine-5g":
+                    password: "classysheep798"
+            optional: true

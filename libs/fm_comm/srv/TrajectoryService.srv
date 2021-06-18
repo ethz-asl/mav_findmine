@@ -1,0 +1,18 @@
+# Start/Goal parameters
+geometry_msgs/Pose start_pose #start pose for the planner
+geometry_msgs/Twist start_twist
+geometry_msgs/Pose goal_pose #goal pose for the planner
+geometry_msgs/Twist goal_twist
+
+# The input trajectory.
+std_msgs/String mission_file
+std_msgs/Float64 target_lat_ENU
+std_msgs/Float64 target_lon_ENU
+std_msgs/Float64 target_alt_ENU
+
+# Planning settings
+std_msgs/Bool plan_from_home
+
+---
+mav_planning_msgs/PolynomialTrajectory4D trajectory
+geometry_msgs/Point start_pos

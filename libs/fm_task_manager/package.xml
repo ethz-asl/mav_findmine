@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fm_task_manager</name>
+  <version>0.1.0</version>
+  <description>Standard UAV tasks integrated into ros_task_manager.</description>
+
+  <maintainer email="brik@ethz.ch">Rik Baehnemann</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>dynamic_reconfigure</depend>
+
+  <depend>task_manager_lib</depend>
+  <depend>task_manager_msgs</depend>
+  <depend>dji_sdk</depend>
+  <depend>fm_comm</depend>
+  <depend>mav_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>eigen_conversions</depend>
+  <depend>mav_planning_msgs</depend>
+  <depend>mav_trajectory_generation</depend>
+  <depend>mav_trajectory_generation_ros</depend>
+  <depend>mav_state_estimation</depend>
+  <depend>tf2_ros</depend>
+
+  <exec_depend>fm_control</exec_depend>
+</package>

@@ -1,0 +1,40 @@
+capability_group:                "mission"
+default_period:                  0.2
+default_timeout_s:               -1.0   # Default timeout for entire process (s) (-1 for no timeout)
+
+mission_settings:
+  transition:                    false  # Do a GNSS altitude transition to the start of the survey trajectory.
+  switch_control_frame:          true   # Control the UAV above ground level during the survey trajectory.
+  record_radar:                  false  # Automatically start and stop radar recording during the survey mission.
+  record_sensors:                true   # Automatically start logging all other sensors while in air.
+  record_cam:                    false  # Record the camera output.
+  run_localization_optimization: true   # After landing, run the localization optimization pipeline and export the radar antenna poses.
+
+set_local_frame:
+  timeout_s:                     10.0   # Timeout for setting local frame (s) (-1 for no timeout)
+
+take_off:
+  timeout_s:                     15.0   # Timeout for takeoff task (s) (-1 for no timeout)
+
+generate_single_trajectory:
+  task_period:                   0.5  # Replan every 0.5 seconds.
+  altitude:                      5.0  # The take off and landing waypoint altitude above take off position.
+  transition_altitude:           30.0 # The GNSS altitude above take off during transitions.
+
+execute_single_trajectory:
+  timeout_s:                     -1.0   # Timeout for executing trajectory (s) (-1 for no timeout)
+  ball_radius:                   1.0    # Acceptance radius for terminating trajectory (m)
+  terminal_vel:                  0.5    # Acceptance speed for terminating trajectory (m/s)
+
+waypoint:
+  timeout_s:                     30.0   # Timeout for waypoints (s) (-1 for no timeout)
+  ball_radius:                   1.0    # Acceptance radius for waypoints (m)
+  terminal_vel:                  0.5    # Acceptance speed for waypoints (m)
+
+
+landing:
+  timeout_s:                     30.0   # Timeout for landing (s)
+
+postprocessing:
+  timeout_s:                     -1.0   # Timeout for postprocessing state estimates to CSV (s) (-1 for no timeout)
+  topics:                        "a1,a2,a3,a4" # The pose topics that are exported to CSV.

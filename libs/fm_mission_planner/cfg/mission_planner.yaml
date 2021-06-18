@@ -1,0 +1,7 @@
+input_constraints:
+  f_min: 8.81
+  f_max: 10.81
+  v_max: 4.0
+  omega_xy_max: 0.26 # pi/12
+  omega_z_max: 0.79 # pi/4
+  omega_z_dot_max: 1.57 # pi/2

@@ -1,0 +1,25 @@
+@startuml
+
+[*] -> HighAltitudeAerialImaging
+[*] -> LowAltitudeRadarFlight: SHA polygon
+
+HighAltitudeAerialImaging -> LowAltitudeRadarFlight : No flight zones
+
+state LowAltitudeRadarFlight {
+  [*] --> GlobalCoveragePlanner
+  [*] --> IndividualMotionPlanner
+  GlobalCoveragePlanner --> MissionExecution : GNSS trajectory
+  IndividualMotionPlanner --> MissionExecution : GNSS trajectory
+
+  state MissionExecution {
+  [*] --> DataLogging
+  [*] --> CopterControl
+  }
+
+  MissionExecution --> PostProcessing: IMU\nPosition
+}
+
+LowAltitudeRadarFlight -> RadarImaging: Radar measurements\nAntenna poses
+RadarImaging -> [*]
+
+@enduml

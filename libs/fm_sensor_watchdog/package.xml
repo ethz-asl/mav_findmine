@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fm_sensor_watchdog</name>
+  <version>1.0.0</version>
+  <description>The fm_sensor_watchdog package</description>
+
+  <maintainer email="stlucas@ethz.ch">lucas</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>rqt_gui</depend>
+  <depend>rqt_gui_py</depend>
+  <depend>std_msgs</depend>
+  <depend>versavis</depend>
+  <depend>libsbp_catkin</depend>
+  <depend>libsbp_ros_msgs</depend>
+
+  <export>
+    <rqt_gui plugin="${prefix}/plugin.xml"/>
+  </export>
+</package>

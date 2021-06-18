@@ -1,0 +1,28 @@
+<launch>
+  <arg name="mav_name" default="$(env HOSTNAME)" />
+  <arg name="output" default="$(arg output)" />
+
+  <group ns="$(arg mav_name)">
+    <!-- TODO(rikba): Remove dummi dji_enu frame. -->
+    <rosparam param="/geotf" >
+        Frames:
+            wgs84:
+                Type: EPSGCode
+                Code: 4326
+
+            ecef:
+                Type: EPSGCode
+                Code: 4978
+
+            dji_enu:
+                Type: GCSCode
+                Code: WGS84
+
+        TF_Mapping:
+            GEO_TF: dji_enu
+            TF: local
+    </rosparam>
+    <node name="enu_conversion" pkg="fm_control" type="enu_conversion" output="$(arg output)"/>
+  </group>
+
+</launch>

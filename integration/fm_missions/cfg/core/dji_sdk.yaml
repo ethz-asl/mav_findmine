@@ -1,0 +1,10 @@
+serial_name: "/dev/ttyS5"
+baud_rate: 921600
+app_id: 1053296
+app_version: 1
+align_time: false
+enc_key: 480cc3129f8a9b28650c7372273d731029e1e0c2a496714efd1808b4eba44f0f
+use_broadcast: false
+drone_version: "M600"
+
+capability_group: "core"

@@ -1,0 +1,50 @@
+#!/usr/bin/python
+
+# MIT License
+#
+# Copyright (c) 2021 Rik Baehnemann, ASL, ETH Zurich, Switzerland
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sellpython
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+from fm_pix4d.export_dsm import*
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Export the geotiff into CSV for radar processor.')
+    parser.add_argument('input', nargs=1, help='The input TIFF.')
+    parser.add_argument('output', nargs=1, help='The output CSV.')
+    parser.add_argument('enu_origin', nargs=1, help='The WGS84 coordinates of the ENU origin.')
+    parser.add_argument('center', nargs=1, help='The ENU coordinates of the DSM center.')
+    parser.add_argument('min_x', nargs=1, help='The minimum x-extension of the DSM to be cropped.')
+    parser.add_argument('max_x', nargs=1, help='The maximum x-extension of the DSM to be cropped.')
+    parser.add_argument('min_y', nargs=1, help='The minimum y-extension of the DSM to be cropped.')
+    parser.add_argument('max_y', nargs=1, help='The maximum y-extension of the DSM to be cropped.')
+
+    args = parser.parse_args()
+
+    print("Input TIFF: %s" %(args.input[0]))
+    print("Output CSV: %s" %(args.output[0]))
+    print("ENU origin: %s" %(args.enu_origin[0]))
+    print("Center point of rectangle: %s" %(args.center[0]))
+    print("x-min: %s" %(args.min_x[0]))
+    print("x-max: %s" %(args.max_x[0]))
+    print("y-min: %s" %(args.min_y[0]))
+    print("y-max: %s" %(args.max_y[0]))
+
+    export_dsm(args.input[0], args.output[0], args.enu_origin[0], args.center[0], float(args.min_x[0]), float(args.max_x[0]), float(args.min_y[0]), float(args.max_y[0]))

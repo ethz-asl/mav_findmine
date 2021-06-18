@@ -1,0 +1,3 @@
+capability_group: "mission"
+
+message_timeout_s: 1.0

@@ -1,0 +1,23 @@
+K_px: 5.0
+K_py: 5.0
+K_pz: 1.2
+K_yaw: 2.0
+
+K_vx: 4.0
+K_vy: 4.0
+K_vz: 0.6
+K_yaw_rate: 1.5
+
+K_ax: 0.75
+K_ay: 0.75
+K_az: 0.0
+K_yaw_acc: 0.0
+
+v_xy_max: 8.0
+v_z_up_max: 3.0
+v_z_down_max: 2.0
+yaw_rate_max: 2.0
+
+control_type: 1 # 0: position reference, 1: velocity reference
+
+min_transition_altitude: -1.0 # No limit on transition altitude.

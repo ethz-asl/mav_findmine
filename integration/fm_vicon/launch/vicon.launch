@@ -1,0 +1,25 @@
+<launch>
+  <arg name="mav_name" default="moa" />
+  <arg name="vicon_delay_s" default="0.0" />
+
+  <include file="$(find ros_vrpn_client)/launch/asl_vicon.launch">
+    <arg name="object_name" value="$(arg mav_name)" />
+    <arg name="timestamping_system" value="translation" />
+  </include>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="broadcaster_moa_to_pos" args="-0.0324 0.2027 0.0811 -0.000296 -0.003404 0.001229 0.999993 moa pos" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="broadcaster_moa_to_att" args="-0.0324 -0.2002 0.0817 -0.000398 -0.009019 0.000430 0.999959 moa att" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="broadcaster_moa_to_adis16448bmlz_vicon" args="-0.1427 0.0020 -0.2520 -0.003736 -0.001825 -0.003099 0.999987 moa adis16448bmlz_vicon" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="broadcaster_vicon_to_enu" args="0 0 0 0 0 0 vicon enu" />
+
+  <node pkg="fm_vicon" type="att_relay" name="att_relay" output="screen">
+    <param name="vicon_delay_s" value="$(arg vicon_delay_s)" />
+  </node>
+  <node pkg="fm_vicon" type="pos_relay" name="pos_relay" output="screen">
+    <param name="vicon_delay_s" value="$(arg vicon_delay_s)" />
+  </node>
+  <node pkg="fm_vicon" type="gt_relay" name="gt_relay" output="screen">
+    <param name="vicon_delay_s" value="$(arg vicon_delay_s)" />
+  </node>
+
+</launch>

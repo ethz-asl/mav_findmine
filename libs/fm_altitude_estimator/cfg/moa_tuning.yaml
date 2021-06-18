@@ -1,0 +1,37 @@
+process_stdev: 0.3
+init_altitude: 0.0
+init_altitude_stdev: 5.0
+max_altitude_stdev_rel: 0.3
+use_delta_z_for_agl_: true
+maha_max: 50
+
+lidar:
+  use_msg_stdev: false
+  has_tf_frame: false
+  sensor_frame: lidar_lite
+  static_offset: -0.37
+  static_rejection_angle: 0.25
+  measurement_stdev: 0.35
+  measurement_stdev_scaling_angle: 1.0
+  measurement_stdev_scaling_distance: 0.0
+  signal_strength_min: 0
+
+radar:
+  use_msg_stdev: false
+  has_tf_frame: false
+  sensor_frame: us_d1
+  static_offset: -0.5
+  static_rejection_angle: 0.5
+  measurement_stdev: 0.2
+  measurement_stdev_scaling_angle: 1.0
+  measurement_stdev_scaling_distance: 0.0
+  snr_min: 30
+
+tof:
+  use_msg_stdev: true
+  has_tf_frame: false
+  sensor_frame: pmd
+  static_offset: 0.0
+  measurement_stdev: 0.22
+  measurement_stdev_scaling_angle: 1.0
+  measurement_stdev_scaling_distance: 0.0

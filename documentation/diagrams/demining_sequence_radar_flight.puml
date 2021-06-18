@@ -1,0 +1,11 @@
+@startuml
+
+[*] -> HighAltitudeAerialImaging
+[*] -> LowAltitudeRadarFlight: SHA polygon
+
+HighAltitudeAerialImaging -> LowAltitudeRadarFlight : No flight zones
+
+LowAltitudeRadarFlight -> RadarImaging: **Radar measurements**\n**Antenna poses**
+RadarImaging -> [*]
+
+@enduml

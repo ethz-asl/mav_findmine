@@ -1,0 +1,27 @@
+<launch>
+  <arg name="mav_name" default="$(env HOSTNAME)" />
+  <arg name="mission_file" default="$(find fm_missions)/cfg/trajectories/gannertshofen_1.yaml" />
+
+  <include file="$(find fm_missions)/launch/core.launch">
+    <arg name="mav_name" value="$(arg mav_name)" />
+  </include>
+
+  <group ns="$(arg mav_name)">
+    <!-- MISSION -->
+    <node name="trajectory_generator" pkg="fm_trajectories" type="trajectory_generator" output="screen" />
+
+    <node name="task_server" pkg="fm_task_manager" type="task_server" output="screen" >
+      <rosparam command="load" file="$(find fm_missions)/cfg/mission/task_server.yaml" />
+      <!--param name="lib_path" value="$(find fm_task_manager)/src/tasks"/-->
+      <param name="lib_path" value="$(find fm_missions)/../../../../devel/share/fm_task_manager/tasks"/>
+    </node>
+
+    <node name="single_trajectory_mission" pkg="fm_missions" type="single_trajectory_mission.py" output="screen">
+      <rosparam command="load" file="$(find fm_missions)/cfg/mission/single_trajectory_mission.yaml" />
+      <param name="server" value="/$(arg mav_name)/task_server"/>
+      <param name="generate_single_trajectory/mission_file" value="$(arg mission_file)"/>
+    </node>
+
+  </group>
+
+</launch>

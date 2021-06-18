@@ -1,0 +1,21 @@
+<launch>
+    <arg name="mav_name" default="$(env HOSTNAME)"/>
+    <arg name="output" default="screen" />
+
+    <group ns="$(arg mav_name)">
+        <node name="fm_altitude_estimator" pkg="fm_altitude_estimator"
+              type="fm_altitude_estimator_node" output="$(arg output)">
+            <param name="output_stdev_as_y" value="true"/>
+
+            <!-- Filter tuning -->
+            <rosparam command="load" file="$(find fm_altitude_estimator)/cfg/moa_tuning.yaml"/>
+
+            <remap from="attitude" to="dji_sdk/attitude"/>
+            <remap from="position" to="dji_sdk/local_position"/>
+            <remap from="lidar_range" to="lidar_lite/data"/>
+            <remap from="radar_range" to="us_d1/data"/>
+        </node>
+
+    </group>
+
+</launch>

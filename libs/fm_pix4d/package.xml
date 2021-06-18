@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>fm_pix4d</name>
+  <version>1.0.0</version>
+  <description>The fm_pix4d package</description>
+
+  <maintainer email="stlucas@ethz.ch">Lucas Streichenberg</maintainer>
+
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+</package>

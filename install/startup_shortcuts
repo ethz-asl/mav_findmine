@@ -1,0 +1,13 @@
+mission_control() {
+    export ROS_MASTER_URI=http://"$1":11311
+    roslaunch fm_missions basestation.launch mav_name:="$1"
+}
+
+configure_mission() {
+    ssh "$1"@"$1" -t "bash -ic 'rosed fm_missions single_trajectory_mission.yaml'"
+}
+
+trajectory_start() {
+    TRAJECTORY_FILE="/home/"$1"/trajectories/"$2""
+    ssh "$1"@"$1" -t "bash -ic 'roslaunch fm_missions single_trajectory.launch mission_file:=${TRAJECTORY_FILE}'"
+}

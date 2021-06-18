@@ -1,0 +1,28 @@
+<package>
+  <name>mav_findmine</name>
+  <version>1.0.0</version>
+  <description>The FindMine software stack.</description>
+  <maintainer email="brik@ethz.ch">Rik Baehnemann</maintainer>
+
+  <license>MIT</license>
+
+  <author>Rik Baehnemann</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>fm_altitude_estimator</run_depend>
+  <run_depend>fm_comm</run_depend>
+  <run_depend>fm_control</run_depend>
+  <run_depend>fm_mission_planner</run_depend>
+  <run_depend>fm_missions</run_depend>
+  <run_depend>fm_pix4d</run_depend>
+  <run_depend>fm_ppk</run_depend>
+  <run_depend>fm_radar_driver</run_depend>
+  <run_depend>fm_sensor_watchdog</run_depend>
+  <run_depend>fm_task_manager</run_depend>
+  <run_depend>fm_trajectories</run_depend>
+  <run_depend>fm_vicon</run_depend>
+  <export>
+    <metapackage/>
+  </export>
+</package>

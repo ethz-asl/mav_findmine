@@ -1,0 +1,36 @@
+# refresh rate
+update_rate: 5.0 #secs
+
+# sampling time for msg frequency
+subscriber_duration: 2.0
+
+# max number of msgs to average for rate
+max_msg_number: 20
+
+# approve trajectory service
+trajectory_service_name: "task_server/approve_trajectory"
+
+# topic names
+topic_names: "bfly/synced/camera_info,
+  us_d1/data,
+  lidar_lite/data,
+  piksi/attitude_receiver_0/ros/baseline_ned,
+  piksi/position_receiver_0/ros/pos_enu,
+  time_sync"
+
+# short names will be displayed in the plugin
+topic_names_short: "bfly_cam,
+  us_d1,
+  lidar_lite,
+  piksi_attitude,
+  piksi_position,
+  time_sync"
+
+# msg member that will be accessed
+# '-' -> no msg content will be read, only rate will be monitored
+topic_member: "header.stamp.nsecs,
+  -,
+  -,
+  -,
+  -,
+  x"
