@@ -3,7 +3,7 @@ This repository implements a UAV system for automatic radar and camera surveys.
 
 ![system demonstration video](https://user-images.githubusercontent.com/11293852/105842398-65c54800-5fd6-11eb-9e41-edd821c9dad9.gif)
 
-Please cite our accompanying publication when using this repository.
+Please cite our [accompanying publication](https://arxiv.org/pdf/2106.10108.pdf) when using this repository.
 ```
 Bähnemann, Rik, et al.
 "Under the Sand: Navigation and Localization of a Small Unmanned Aerial Vehicle for Landmine Detection with Ground Penetrating Synthetic Aperture Radar"
